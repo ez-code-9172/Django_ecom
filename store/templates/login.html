@@ -1,48 +1,169 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
+
+{% comment %} {% extends "base.html" %}
 {% block content %}
 
-<!-- Header-->
-        <header class="bg-dark py-5">
-            <div class="container px-4 px-lg-5 my-5">
-                <div class="text-center text-white">
-                    <h1 class="display-4 fw-bolder">Login</h1>
-                    <p class="lead fw-normal text-white-50 mb-0">Log In To Your Account...</p>
+<header  >
+    <div class="container px-4 px-lg-5">
+        <div class="text-center">
+            <h1 class="display-6 fw-bold">Login</h1>
+            <p class="lead fw-normal text-white-50 mb-0">Discover the latest trends and best deals</p>
+        </div>
+    </div>
+
+</header>
+
+<!-- Add spacing between header and form -->
+<div style="height: 30px;"></div>
+
+<!-- About the company -->
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-4">
+            <div class="card shadow border-light rounded">
+                <div class="card-body p-4">
+                    <h5 class="card-title text-center mb-4">Welcome Back!</h5>
+          
+                    <form method="POST" action="{% url 'login' %}">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <input type="text" class="form-control" name="username" placeholder="Enter your username" required>
+                        </div>
+                        <div class="mb-3">
+                            <input type="password" class="form-control" name="password" placeholder="Enter your password" required>
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary">Login</button>
+                        </div>
+                        
+                        <div class="text-center mt-2">
+                            <span class="small">Don't have an account? <a href="{% url 'register'%}" class="text-primary">Sign up!</a></span>
+                        </div>
+                    </form>
+              
                 </div>
             </div>
-        </header>
-
-        <div class="container">
-        	<div class="row">
-        		<center>
-        			<div class="col-8">
-
-        				<br/><br/>
-<form method="POST" action="{% url 'login' %}">
-    {% csrf_token %}
-    
-  <div class="mb-3">
-    
-    <input type="text" class="form-control" name="username" placeholder="Enter Your Username">
-    
-  </div>
-  <div class="mb-3">
-    
-    <input type="password" class="form-control" name="password" placeholder="Enter Your Password">
-  </div>
-  <br/><br/>
-  <button type="submit" class="btn btn-secondary">Login</button>
-</form>
-
-<br/><br/>
-<br/><br/>
-<br/><br/>
-<br/><br/>
-<br/><br/>
-<br/><br/>
-<br/><br/>
-        			</div>
-        		</center>
-        	</div>
         </div>
+    </div>
+</div>
+
+<br/><br/>
+
+{% endblock %} {% endcomment %}
+
+
+
+
+{% block content %}
+
+<!-- Custom CSS for the new layout and styling -->
+<style>
+    .login-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: calc(100vh - 56px); /* Adjust height to account for navbar */
+      background-color: #f5f7fa; /* Light background color */
+      padding-top: 20px; /* Reduced padding for less space */
+    }
+  
+    .login-card {
+      display: flex;
+      height:400px;
+      width: 800px; /* Adjust the width of the login card */
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+      border-radius: 8px; /* Rounded corners */
+      overflow: hidden; /* Ensure children do not overflow the card */
+    }
+  
+    .login-left {
+      background-color: #2d2d2d; /* Dark background color */
+      color: white;
+      padding: 40px;
+      width: 40%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+  
+    .login-left h2, .login-left p {
+      margin-bottom: 16px;
+      text-align: center;
+    }
+  
+    .login-left h2 {
+      font-size: 24px;
+      font-weight: bold;
+    }
+  
+    .login-left p {
+      font-size: 16px;
+    }
+  
+    .login-right {
+      background-color: white; /* Light background color */
+      padding: 40px;
+      width: 60%;
+    }
+  
+    .form-control {
+      margin-bottom: 16px;
+    }
+  
+    .form-control::placeholder {
+      color: #a9a9a9; /* Placeholder color */
+    }
+  
+    .btn-primary {
+      background-color: #00bcd4; /* Button color */
+      border: none;
+    }
+  
+    .btn-primary:hover {
+      background-color: #00a1b4; /* Button hover color */
+    }
+  
+    .login-footer {
+      margin-top: 16px;
+      text-align: center;
+    }
+  
+    .login-footer a {
+      color: #00bcd4; /* Link color */
+    }
+  </style>
+
+<div class="login-container">
+  <div class="login-card">
+    <!-- Left section with dark background -->
+    <div class="login-left">
+      <h2>Sign in</h2>
+      <p>Enter your username and password to sign in and view your content.</p>
+    </div>
+    <!-- Right section with form -->
+    <div class="login-right">
+      <form method="POST" action="{% url 'login' %}">
+        {% csrf_token %}
+        <div class="mb-3">
+          <label for="username" class="form-label">Email/username</label>
+          <input type="text" class="form-control" name="username" placeholder="you@yourdomain.com" required>
+        </div>
+        <div class="mb-3">
+          <label for="password" class="form-label">Password</label>
+          <input type="password" class="form-control" name="password" placeholder="••••••••••" required>
+        </div>
+        <div class="d-grid">
+          <button type="submit" class="btn btn-primary">Log in</button>
+        </div>
+        <div class="login-footer mt-3">
+            <div class="text-center mt-2">
+                <span class="small">Don't have an account? <a href="{% url 'register'%}" class="text-primary">Sign up!</a></span>
+            </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
 
 {% endblock %}

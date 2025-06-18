@@ -1,90 +1,141 @@
-{% extends 'base.html' %}
-
-
+{% extends "base.html" %}
 {% block content %}
 
-        <!-- Header-->
-        <header class="bg-dark py-5">
-            <div class="container px-4 px-lg-5 my-5">
-                <div class="text-center text-white">
-                    <h1 class="display-4 fw-bolder">Shop in style</h1>
-                    <p class="lead fw-normal text-white-50 mb-0">With this shop hompeage template</p>
-                </div>
-            </div>
-        </header>
-        <!-- Section-->
-        <section class="py-5">
+<!-- Inline CSS for Home Page -->
+<style>
+    /* General Page Styles */
+    body {
+        background-color: #f8f9fa; /* Light grey background */
+        font-family: Arial, sans-serif;
+    }
 
-            <div class="container px-4 px-lg-5 mt-5">
-            
-                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-                        
-                {% for product in products %}
-                    {% if product.is_sale %}
-                    
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <!-- Sale badge-->
-                            <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
+    /* Header Styling */
+    header {
+        background: linear-gradient(to right, #4e73df, #224abe); 
+        color: white;
+        text-align: center;
+        padding: 50px 0;
+    }
 
-                            <!-- Product image-->
-                            <img class="card-img-top" src="{{ product.image.url }}" alt="..." />
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder">{{ product.name }}</h5>
-                                    <!-- Sale -->
-                <div class="d-flex justify-content-center small text-warning mb-2">
-                <div class="bi-star-fill"></div>
-                &nbsp;&nbsp;Sale!&nbsp;&nbsp;
-                <div class="bi-star-fill"></div>
-                </div>
+    header h1 {
+        font-size: 3rem;
+        font-weight: bold;
+    }
 
-                                    <!-- Product price-->
-                                    <strike>
-                                    ${{ product.price }}
-                                    </strike>
-                                    &nbsp;
-                                    ${{ product.sale_price }}
-                                </div>
-                            </div>
-                            <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-    <div class="text-center">
-        <a class="btn btn-outline-dark mt-auto" href="{% url 'product' product.id  %}">View Product</a>
+    header p {
+        font-size: 1.2rem;
+    }
+
+    /* Slider Styling */
+    .carousel-item img {
+        width: 100%;
+        height: 500px;
+        object-fit: cover;
+    }
+
+    /* Product Card Styling */
+    .card {
+        border: none;
+        transition: transform 0.3s;
+    }
+
+    .card:hover {
+        transform: scale(1.05);
+    }
+
+    .card img {
+        height: 200px;
+        object-fit: cover;
+    }
+
+    .card .card-body {
+        text-align: center;
+    }
+
+    .btn-custom {
+        background-color: #4e73df;
+        color: white;
+    }
+
+    .btn-custom:hover {
+        background-color: #224abe;
+    }
+</style>
+
+<!-- Header Section -->
+<header class="bg-dark text-white py-5" style="background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('path/to/your/background-image.jpg'); background-size: cover; background-position: center;">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="text-center">
+            <h1 class="display-4 fw-bold">Shop in Style with Dukkan's</h1>
+            <p class="lead fw-normal text-white-50 mb-0">Discover the latest trends and best deals</p>
+        </div>
     </div>
-                            </div>
+</header>
+
+{% comment %} <!-- Slider Section -->
+<div id="carouselExampleIndicators" class="carousel slide mt-4 mb-5" data-bs-ride="carousel">
+    <div class="carousel-inner">
+        <!-- E-commerce Image 1: Big Sale Banner -->
+        <div class="carousel-item active">
+            <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff" class="d-block w-100" alt="Sale Banner">
+        </div>
+
+        <!-- E-commerce Image 2: Featured Products -->
+        <div class="carousel-item">
+            <img src="https://images.unsplash.com/photo-1587496679742-f4a7fc4e06a7" class="d-block w-100" alt="Featured Products">
+        </div>
+
+        <!-- E-commerce Image 3: New Arrivals -->
+        <div class="carousel-item">
+            <img src="https://images.unsplash.com/photo-1605296867304-46d5465a13f1" class="d-block w-100" alt="New Arrivals">
+        </div>
+    </div>
+
+    <!-- Carousel Controls -->
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+        <span class="carousel-control-next-icon"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div> {% endcomment %}
+
+
+<!-- Product Section -->
+<section class="py-5">
+    <div class="container px-4 px-lg-5 mt-5">
+        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+            {% for product in products %}
+            <div class="col mb-5">
+                <div class="card h-100 shadow-sm">
+                    {% if product.is_sale %}
+                    <div class="badge bg-danger text-white position-absolute" style="top: 0.5rem; right: 0.5rem;">Sale</div>
+                    {% endif %}
+                    <img class="card-img-top" src="{{ product.image.url }}" alt="Product Image">
+                    <div class="card-body p-4">
+                        <div class="text-center">
+                            <h5 class="fw-bolder">{{ product.name }}</h5>
+                            {% if product.is_sale %}
+                            <strike>Rs.{{ product.price }}</strike>
+                            <br>
+                            <b>Rs.{{ product.sale_price }}</b>
+                            {% else %}
+                            Rs.{{ product.price }}
+                            {% endif %}
                         </div>
                     </div>
-
-
-                    {% else %}
-                <div class="col mb-5">
-                        <div class="card h-100">
-                            <!-- Product image-->
-                            <img class="card-img-top" src="{{ product.image.url }}" alt="..." />
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder">{{ product.name }}</h5>
-                                    <!-- Product price-->
-                                    ${{ product.price }}
-                                </div>
-                            </div>
-                            <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-    <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="{% url 'product' product.id %}">View Product</a></div>
-                            </div>
+                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                        <div class="text-center">
+                            <a class="btn btn-custom mt-auto" href="{% url 'product' product.id %}">View Product</a>
                         </div>
                     </div>
-
-                        {% endif %}
-                    {% endfor %}
-
-
+                </div>
             </div>
-        </section>
+            {% endfor %}
+        </div>
+    </div>
+</section>
 
 {% endblock %}

@@ -1,1 +1,18 @@
+# Django stuff
+*.pyc
+__pycache__/
+db.sqlite3
+/static/
+media/
+
+# Environment
 .env
+venv/
+ENV/
+
+# VS Code
+.vscode/
+
+# MacOS
+.DS_Store
+
