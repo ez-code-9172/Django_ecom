@@ -39,3 +39,39 @@ A full-featured eCommerce web application built with Django. It includes a dynam
 | 💰 Payments  | Razorpay / Stripe (optional) |
 | 🌐 Hosting   | Netlify (frontend) / Render / PythonAnywhere / Heroku (backend) |
 --- ------------------------------------------------------------------------------
+
+
+
+
+Clone the repository:
+
+
+git clone https://github.com/ez-code-9172/Django_ecom.git
+cd Django_ecom
+
+
+Create a virtual environment:
+
+
+python -m venv venv
+source venv/bin/activate  # on Windows: venv\Scripts\activate
+
+
+
+Install dependencies:
+
+
+pip install -r requirements.txt
+
+
+Run migrations:
+
+
+python manage.py makemigrations
+python manage.py migrate
+
+
+Start the server:
+
+
+python manage.py runserver
